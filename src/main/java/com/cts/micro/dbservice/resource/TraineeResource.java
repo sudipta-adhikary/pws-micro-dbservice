@@ -1,5 +1,8 @@
 package com.cts.micro.dbservice.resource;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +35,18 @@ public class TraineeResource {
 	@GetMapping("/find/{name}")
 	public Iterable<Trainee> findTrainee(@PathVariable final String name) {
 		return repository.findByName(name);
+	}
+
+	@GetMapping("/{name}")
+	public List<String> delete(@PathVariable final String name) {
+
+		List<String> messages = new ArrayList<String>();
+		repository.findByName(name).stream().forEach(trainee -> {
+			repository.delete(trainee);
+			messages.add("Record deleted for trainee - " + trainee.getName());
+		});
+
+		return messages;
 	}
 
 	@GetMapping("/fetchall")
