@@ -32,12 +32,12 @@ public class TraineeResource {
 		return "Tried saving [name=" + name + ", email=" + email + "]";
 	}
 
-	@GetMapping("/find/{name}")
+	@GetMapping("/{name}")
 	public Iterable<Trainee> findTrainee(@PathVariable final String name) {
 		return repository.findByName(name);
 	}
 
-	@GetMapping("/{name}")
+	@GetMapping("/delete/{name}")
 	public List<String> delete(@PathVariable final String name) {
 
 		List<String> messages = new ArrayList<String>();
